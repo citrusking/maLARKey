@@ -27,7 +27,7 @@ function bgWhite(){ printf "\033[107m"; }
 
 
 
-#map building functions:
+#map frame functions:
 
 
 function border(){
@@ -35,7 +35,6 @@ function border(){
 #use frame width as arg 1, color command as arg 2
 
 $2
-
 for (( BLength=0; BLength<$1; BLength++ )); do
 printf " "
 done
@@ -79,7 +78,6 @@ function blankMap(){
 #this function prints the blank map
 #use map dimensions (length and width same) as arg 1, color command as arg 2
 
-#stty -echo #this turns off keyboard input
 
 #this block clears and sets variables
 clear
@@ -94,15 +92,12 @@ for (( j=0; j<$mapHeight; j++ )); do
 borderBlank $frameWidth $2
 done
 border $frameWidth $2
-
-#stty echo #this turns on keyboard input
 }
 
 
 function textBox(){
 #this function places the text box beneath the map
 
-#stty -echo #this turns off keyboard input
 
 tput cup $(( $frameHeight + 1 ))
 border $frameWidth bgLGray
@@ -112,8 +107,6 @@ done
 border $frameWidth bgLGray
 
 tput cup $(( $frameHeight + 3 )) 3
-
-#stty echo #this turns on keyboard input
 }
 
 
@@ -137,15 +130,20 @@ tput ed
 }
 
 
+function textBoxPrompt(){
+tput cup $(( $frameHeight + 7 )) 3
+read -s -N 1 -p "Type Y for yes or N for no" prompt
+}
 
-#placement functions
+
+
+#map script functions
 
 
 function placeBlock(){
 #this function places a block given any coordinates
 #use X and Y in map as args (Y starts at top)
 
-#stty -echo #this turns off keyboard input
 
 #this block defines variables
 blockX=$1
@@ -157,8 +155,6 @@ blockPosY=$blockY
 tput cup $blockPosY $blockPosX
 printSquare
 tput cup $(( $frameHeight + 1 ))
-
-#stty echo #this turns on keyboard input
 }
 
 
@@ -166,7 +162,6 @@ function placePlayer(){
 #this function places the player on the map
 #use X and Y in map as args (Y starts at top)
 
-#stty -echo #this turns off keyboard input
 
 #this block sets variables
 playerX=$1 #X position in map
@@ -174,13 +169,9 @@ playerY=$2 #Y position in map
 playerPosX=$(( $playerX * 2 )) #playerPosX is the X position (starts at 0)
 playerPosY=$playerY #playerPosY is the Y position (starts at 0)
 
-#this block places the cursor, prints player color, and returns cursor
+#this block places the cursor and prints player color
 tput cup $playerPosY $playerPosX
 bgMagenta; printSquare; bgBlack;
-tput cup $(( $frameHeight + 1 ))
-tput ed
-
-#stty echo #this turns on keyboard input
 }
 
 
@@ -380,6 +371,36 @@ down=map"$mapNum"coordX"$playerX"Y"$(( $playerY + 1 ))"
 }
 
 
+function quit(){
+#this function prompts to quit and quits or doesn't
+
+textBox
+printf "Do you want to quit the game?"
+textBoxLine3
+printf "Progress will not be saved."
+textBoxPrompt
+
+case $prompt in
+
+y|Y)
+        clear
+        stty echo
+        visible
+        exit 0
+	;;
+
+n|N)
+	tput cup $frameHeight
+	tput ed
+	;;
+
+*)	
+	;;
+
+esac
+}
+
+
 function interact(){
 #this function checks for interactable spaces adjacent to player and performs their action
 #this is done by checking for the existence of a variable named after the coordinates
@@ -441,38 +462,52 @@ fi
 #this block is for transitions
 if [ "${!left}" == "transition" ]
 then
-	#stty -echo
         . interactScripts/transitions/"$left".sh
-	#stty echo
 
 
 elif [ "${!right}" == "transition" ]
 then
-	#stty -echo
         . interactScripts/transitions/"$right".sh
-	#stty echo
 
 
 elif [ "${!up}" == "transition" ]
 then
-	#stty -echo
         . interactScripts/transitions/"$up".sh
-	#stty echo
 
 
 elif [ "${!down}" == "transition" ]
 then
-	#stty -echo
         . interactScripts/transitions/"$down".sh
-	#stty echo
 fi
+}
+
+
+function playerType(){
+#this function passes the input as a command
+
+tput cup $(( frameHeight + 1 ))
+
+printf "%0.s* " {1..22}
+printf "\n$ "
+
+stty echo
+visible
+
+read cmd
+echo
+echo "`$cmd`"
+
+stty -echo
+invisible
+
+sleep 1
+tput cup $frameHeight
+tput ed
 }
 
 
 function readInput(){
 read -s -N 1 input
-
-invisible
 
 case "$input" in
 a)
@@ -480,7 +515,7 @@ a)
         ;;
 
 A)
-	left;left;left;left;left;
+	left;left;left;left;left;left;left;left
 	;;
 
 d)
@@ -488,7 +523,7 @@ d)
         ;;
 
 D)
-	right;right;right;right;right;
+	right;right;right;right;right;right;right;right;
 	;;
 
 w)
@@ -496,7 +531,7 @@ w)
         ;;
 
 W)
-	up;up;up;up;up;
+	up;up;up;up;up;up;up;up;
 	;;
 
 s)
@@ -504,18 +539,19 @@ s)
         ;;
 
 S)
-	down;down;down;down;down;
+	down;down;down;down;down;down;down;down;
 	;;
 
 q)
-        clear
-	stty echo
-	visible
-        exit 0
+	quit
         ;;
 
 e)
 	interact
+	;;
+
+t|$)
+	playerType
 	;;
 
 #DEV COMMAND TAKE THIS OUT
@@ -523,5 +559,3 @@ r)
 	declare -g $up=""
 esac
 }
-
-

@@ -104,10 +104,8 @@ textBoxLine2
 printf "Thank ya so much!"
 textBoxLine3
 printf "Will ya hand that over fer me?"
+textBoxPrompt
 
-
-tput cup $(( $frameHeight + 7 )) 3
-read -s -N 1 -p "Type Y for yes or N for no" input
 case $input in
 
 Y | y)
