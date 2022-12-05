@@ -11,7 +11,7 @@ textBoxLine2
 printf "Proud mother of the Gravedigger family"
 textBoxLine3
 printf "    Loved by all but known by few"
-textBoxWait
+headstoneWait
 
 if [ `cat inventory | grep "Shovel" | wc -l` == 1 ] && [ $graveDug == 0 ]
 then

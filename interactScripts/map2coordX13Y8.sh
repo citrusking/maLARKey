@@ -8,10 +8,8 @@ textBox
 printf "North: Professor's Estate"
 textBoxLine2
 printf "East: Larktown"
-textBoxWait
-
-textBox
+textBoxLine3
 printf "South: Lark Field"
-textBoxLine2
+textBoxLine4
 printf "West: Middle of Nowhere"
 textBoxWait

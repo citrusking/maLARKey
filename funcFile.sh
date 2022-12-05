@@ -101,7 +101,7 @@ function textBox(){
 
 tput cup $(( $frameHeight + 1 ))
 border $frameWidth bgLGray
-for (( TBHeight=0; TBHeight<7; TBHeight++ )); do
+for (( TBHeight=0; TBHeight<8; TBHeight++ )); do
 borderBlank $frameWidth bgLGray
 done
 border $frameWidth bgLGray
@@ -118,10 +118,14 @@ function textBoxLine2(){ tput cup $(( $frameHeight + 4 )) 3; }
 function textBoxLine3(){ tput cup $(( $frameHeight + 5 )) 3; }
 
 
+#this function places the cursor at the fourth line in the box
+function textBoxLine4(){ tput cup $(( $frameHeight + 6 )) 3; }
+
+
 function textBoxWait(){
 #this function adds the waiting line at the bottom of the text box and awaits input
 
-tput cup $(( $frameHeight + 7 )) 3
+tput cup $(( $frameHeight + 8 )) 3
 
 read -s -p "Press enter to continue" input
 
@@ -130,8 +134,16 @@ tput ed
 }
 
 
+function headstoneWait(){
+tput cup $(( $frameHeight + 8 )) 3
+read -s -p "        Press enter to continue" input
+
+tput cup $frameHeight
+tput ed
+}
+
 function textBoxPrompt(){
-tput cup $(( $frameHeight + 7 )) 3
+tput cup $(( $frameHeight + 8 )) 3
 read -s -N 1 -p "Type Y for yes or N for no" prompt
 }
 
@@ -171,7 +183,7 @@ playerPosY=$playerY #playerPosY is the Y position (starts at 0)
 
 #this block places the cursor and prints player color
 tput cup $playerPosY $playerPosX
-bgMagenta; printSquare; bgBlack;
+$playerColor; printSquare; bgBlack;
 }
 
 
@@ -383,6 +395,7 @@ textBoxPrompt
 case $prompt in
 
 y|Y)
+	rm -r *Inventory
         clear
         stty echo
         visible
@@ -416,68 +429,68 @@ tput ed
 #this block is for objects
 if [ "${!left}" == "object" ]
 then
-	. interactScripts/"$left".sh
+	. ../interactScripts/"$left".sh
 
 
 elif [ "${!right}" == "object" ]
 then
         tput cup $frameHeight
-        . interactScripts/"$right".sh
+        . ../interactScripts/"$right".sh
 
 
 elif [ "${!up}" == "object" ]
 then
-        . interactScripts/"$up".sh
+        . ../interactScripts/"$up".sh
 
         
 elif [ "${!down}" == "object" ]
 then
-        . interactScripts/"$down".sh
+        . ../interactScripts/"$down".sh
 
 fi
 
 #this block is for NPCs
 if [ "${!left}" == "npc" ]
 then
-        . dialogueScripts/"$left".sh
+        . ../dialogueScripts/"$left".sh
 
 
 elif [ "${!right}" == "npc" ]
 then
         tput cup $frameHeight
-        . dialogueScripts/"$right".sh
+        . ../dialogueScripts/"$right".sh
 
 
 elif [ "${!up}" == "npc" ]
 then
-        . dialogueScripts/"$up".sh
+        . ../dialogueScripts/"$up".sh
 
 
 elif [ "${!down}" == "npc" ]
 then
-        . dialogueScripts/"$down".sh
+        . ../dialogueScripts/"$down".sh
 fi
 
 
 #this block is for transitions
 if [ "${!left}" == "transition" ]
 then
-        . interactScripts/transitions/"$left".sh
+        . ../interactScripts/transitions/"$left".sh
 
 
 elif [ "${!right}" == "transition" ]
 then
-        . interactScripts/transitions/"$right".sh
+        . ../interactScripts/transitions/"$right".sh
 
 
 elif [ "${!up}" == "transition" ]
 then
-        . interactScripts/transitions/"$up".sh
+        . ../interactScripts/transitions/"$up".sh
 
 
 elif [ "${!down}" == "transition" ]
 then
-        . interactScripts/transitions/"$down".sh
+        . ../interactScripts/transitions/"$down".sh
 fi
 }
 
@@ -495,14 +508,64 @@ visible
 
 read cmd
 echo
-echo "`$cmd`"
 
 stty -echo
 invisible
 
-sleep 1
+if [ `echo $cmd | grep "cd " | wc -l` != 0 ]; then
+
+cmd=""
+
+echo "cd is not allowed in this LARK"
+
+fi
+
+if [ `echo $cmd | grep "rmdir " | wc -l` != 0 ]; then
+
+cmd=""
+
+echo "rmdir is not allowed in this LARK"
+
+fi
+
+if [ `echo $cmd | grep cat | wc -l` != 0 ] && [ `$cmd | wc -l` -gt $(( `tput lines` - 28 )) ]; then
+textBox
+printf "The file is too big to cat."
+textBoxLine2
+printf "Increase number of terminal lines"
+textBoxLine3
+printf "or don't cat that file."
+textBoxWait
+continue
+fi
+
+if [ `echo $cmd | grep "echo" | wc -l` == 1 ] && [ `echo $cmd | grep ">" | wc -l` == 1 ]; then
+
+cmdLeft=`echo $cmd | grep -o -P '.{0,100}>' | cut -c6-`
+cmdLeft=${cmdLeft%>}
+cmdRight=`echo $cmd | grep -o -P '>.{0,100}' | cut -c3-`
+
+echo "$cmdLeft" > "$cmdRight"
+
+cmd=""
+
+fi
+
+if [ "$cmd" == "rm myInventory/Trash" ]; then
+talkTrash=2
+fi
+
+echo "`$cmd`"
+echo
+read -s -p "Press enter to continue" typePrompt
+
+
 tput cup $frameHeight
 tput ed
+
+if [ `echo $cmd | grep "echo" | wc -l` != 0 ]; then
+tutorialEcho=1
+fi
 }
 
 
@@ -546,7 +609,7 @@ q)
 	quit
         ;;
 
-e)
+e|E)
 	interact
 	;;
 
@@ -555,7 +618,54 @@ t|$)
 	;;
 
 #DEV COMMAND TAKE THIS OUT
-r)
-	declare -g $up=""
+#r)
+#	declare -g $up=""
 esac
+}
+
+
+
+function printTitle(){
+echo " ___ ___  ____            "
+echo "|   |   |/    |           "
+echo "| _   _ |  o  |           "
+echo "|  \\_/  |     |           "
+echo "|   |   |  _  |           "
+echo "|   |   |  |  |           "
+echo "|___|___|__|__|           "
+echo "                          "
+echo " _      ____ ____  __  _  "
+echo "| |    /    |    \\|  |/ ] "
+echo "| |   |  o  |  D  )  ' /  "
+echo "| |___|     |    /|    \\  "
+echo "|     |  _  |    \\|     | "
+echo "|     |  |  |  .  \\  .  | "
+echo "|_____|__|__|__|\\_|__|\\_| "
+echo "                          "
+echo "                ___ __ __ "
+echo "               /  _]  |  |"
+echo "              /  [_|  |  |"
+echo "             |    _]  ~  |"
+echo "             |   [_|___, |"
+echo "             |     |     |"
+echo "             |_____|____/ "
+}
+
+
+function printEnd(){
+echo " ______  __ __    ___ "
+echo "|      ||  |  |  /  _]"
+echo "|      ||  |  | /  [_ "
+echo "|_|  |_||  _  ||    _]"
+echo "  |  |  |  |  ||   [_ "
+echo "  |  |  |  |  ||     |"
+echo "  |__|  |__|__||_____|"
+echo "                      "
+echo "   ___  ____   ___    "
+echo "  /  _]|    \\ |   \\   "
+echo " /  [_ |  _  ||    \\  "
+echo "|    _]|  |  ||  D  | "
+echo "|   [_ |  |  ||     | "
+echo "|     ||  |  ||     | "
+echo "|_____||__|__||_____| "
 }

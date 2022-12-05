@@ -75,7 +75,7 @@ textBoxWait
 
 talkGrave=1
 
-elif [ $talkGrave == 1 ] && [ $copperGot == 0 ] && [ `cat inventory | grep "Shovel" | wc -l` == 0 ]
+elif [ $talkGrave == 1 ] && [ $copperGot == 0 ] && [ `ls myInventory | grep "Shovel" | wc -l` == 0 ]
 then
 
 textBox
@@ -84,7 +84,7 @@ textBoxLine2
 printf "enjoy yer visit."
 textBoxWait
 
-elif [ $talkGrave == 1 ] && [ `cat inventory | grep "Shovel" | wc -l` == 1 ]
+elif [ $talkGrave == 1 ] && [ `ls myInventory | grep "Shovel" | wc -l` == 1 ]
 then
 
 textBox
@@ -106,7 +106,7 @@ textBoxLine3
 printf "Will ya hand that over fer me?"
 textBoxPrompt
 
-case $input in
+case $prompt in
 
 Y | y)
         tput cup $frameHeight
@@ -133,14 +133,12 @@ Y | y)
 	printf "want me holdin' on to the past so much."
 	textBoxWait
 
-        cat inventory | grep -v "Shovel" > inventory
-        echo "Copper Ring" >> inventory
+        rm myInventory/Shovel
+        echo "The gravedigger's copper wedding ring. Given to you as a gift for performing a good deed." > myInventory/copperRing
 	copperGot=1
 
         textBox
-        printf "Copper Ring was added"
-        textBoxLine2
-        printf "to your inventory."
+        printf "copperRing was added to inventory."
         textBoxWait
 
         break

@@ -1,27 +1,47 @@
 #!/bin/bash
 
+if [ $talkRepeat == 0 ]; then
+
 textBox
-printf "I'm an unfinished NPC!"
+printf "Townsman: Hey, don't just"
+textBoxLine2
+printf "talk to people once, dialogue"
+textBoxLine3
+printf "can change after talking to"
+textBoxLine4
+printf "someone!"
 textBoxWait
 
-if [ $dollars != 3 ]
-then
+talkRepeat=1
+
+elif [ $talkRepeat == 1 ]; then
 
 textBox
-printf "Here's a dollar!"
+printf "Townsman: Hey, don't just"
+textBoxLine2
+printf "talk to people once, dialogue"
+textBoxLine3
+printf "can change after talking to"
+textBoxLine4
+printf "someone!"
 textBoxWait
 
-echo Dollar >> inventory
-dollars=$(( $dollars + 1 ))
+sleep 1
 
 textBox
-printf "Dollar was added to your inventory."
+printf "Townsman: Haha, gotcha."
 textBoxWait
 
-else
+talkRepeat=2
+
+elif [ $talkRepeat == 2 ]; then
 
 textBox
-printf "You were already given three dollars!"
+printf "Townsman: Seriously though,"
+textBoxLine2
+printf "somebody put a lot of love and"
+textBoxLine3
+printf "care into making this world!"
 textBoxWait
 
 fi

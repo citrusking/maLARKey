@@ -2,7 +2,7 @@
 
 #start area gate
 
-if [ `cat inventory | grep "Gate Key" | wc -l` == 1 ]
+if [ `ls myInventory | grep "gateKey" | wc -l` == 1 ]
 then
 
 #this block removes the gate spaces

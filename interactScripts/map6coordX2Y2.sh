@@ -19,11 +19,11 @@ textBoxLine3
 printf "seen or heard of glasses before."
 textBoxWait
 
-echo Glasses >> inventory
+echo "Glasses from the shop in Larktown." > myInventory/Glasses
 glassesGot=1
 
 textBox
-printf "Glasses were added to your inventory."
+printf "Glasses were added to inventory."
 textBoxWait
 
 placeBlock 2 2

@@ -9,12 +9,6 @@ Narrative: You are in your room and a hole in space-time appears, you jump in an
 
 Instructions:
 type ./malarkey.sh
-use WASD to move
-use E to interact
+follow in-game instructions
 
-purple square is player
-blue square is NPC
-cyan square is interactable object
-gray square is a wall/fence
-
-(I haven't actually added the linux elements yet so it's just a computer game)
+(Note: I do not know how to test for any file permission errors there might be, so sorry in advance if that breaks the game)

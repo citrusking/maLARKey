@@ -8,7 +8,7 @@ textBoxLine3
 printf "does seem to be a ring-shaped slot."
 textBoxWait
 
-if [ `cat inventory | grep "Silver Ring" | wc -l` == 1 ]
+if [ `ls myInventory | grep "silverRing" | wc -l` == 1 ]
 then
 
 textBox
@@ -27,8 +27,7 @@ textBoxLine3
 printf "is revealed."
 textBoxWait
 
-
-cat inventory | grep -v "Silver Ring" > inventory
+rm myInventory/silverRing
 placeBlock 10 9
 placeBlock 11 9
 map8coordX10Y9=""
@@ -37,7 +36,7 @@ map8coordX11Y9=""
 doorTwo=1
 
 
-elif [ `cat inventory | grep "Copper Ring" | wc -l` == 1 ]
+elif [ `ls myInventory | grep "copperRing" | wc -l` == 1 ]
 then
 
 textBox
@@ -56,7 +55,7 @@ textBoxLine3
 printf "is revealed."
 textBoxWait
 
-cat inventory | grep -v "Copper Ring" > inventory
+rm myInventory/copperRing
 placeBlock 10 9
 placeBlock 11 9
 map8coordX10Y9=""
@@ -65,7 +64,7 @@ map8coordX11Y9=""
 doorTwo=1
 
 
-elif [ `cat inventory | grep "Golden Ring" | wc -l` == 1 ]
+elif [ `ls myInventory | grep "goldenRing" | wc -l` == 1 ]
 then
 
 textBox
@@ -84,7 +83,7 @@ textBoxLine3
 printf "is revealed."
 textBoxWait
 
-cat inventory | grep -v "Golden Ring" > inventory
+rm myInventory/goldenRing
 placeBlock 10 9
 placeBlock 11 9
 map8coordX10Y9=""

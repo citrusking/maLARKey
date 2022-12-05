@@ -19,13 +19,13 @@ textBoxLine3
 printf "he hands over the old shovel."
 textBoxWait
 
-cat inventory | grep -v "Dollar" > inventory
-echo Shovel >> inventory
+rm myInventory/bendDollar myInventory/trashDollar myInventory/blindDollar
+echo "Shovel from the shop in Larktown. Likely stolen." > myInventory/Shovel
 shovelGot=1
 dollars=0
 
 textBox
-printf "Shovel was added to your inventory."
+printf "Shovel was added to inventory."
 textBoxWait
 
 placeBlock 6 2

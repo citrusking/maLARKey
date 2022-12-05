@@ -10,4 +10,4 @@ clear
 blankMap 20 bgWhite
 placePlayer 2 11
 
-. mapScripts/map2.sh
+. ../mapScripts/map2.sh

@@ -12,7 +12,7 @@ textBoxLine2
 printf "you are doubtful it would work."
 textBoxWait
 
-if [ `cat inventory | grep "Gun" | wc -l` == 1 ]
+if [ `ls myInventory | grep "Gun" | wc -l` == 1 ]
 then
 
 textBox
@@ -34,7 +34,5 @@ placeBlock 6 13
 
 map5coordX5Y13=""
 map5coordX6Y13=""
-
-shitCount=0
 
 fi

@@ -69,13 +69,13 @@ textBoxLine3
 printf "out a shiny silver ring."
 textBoxWait
 
-echo "Silver Ring" >> inventory
+echo "A silver ring found in fresh excrement." > myInventory/silverRing
 
 textBox
-printf "Silver Ring was added to"
-textBoxLine2
-printf "your inventory."
+printf "silverRing was added to inventory."
 textBoxWait
+
+shitCount=3
 
 else
 

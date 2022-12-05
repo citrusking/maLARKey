@@ -44,5 +44,39 @@ placeNPC 4 4
 placeNPC 5 15
 placeNPC 16 18
 placeNPC 19 11
+
+if [ $talkBlind != 2 ]; then
 placeNPC 10 2
+
+else
+map6coordX10Y2=""
+placeNPC 18 4
+
+fi
+
 placeNPC 18 2
+
+
+if [ $enterMapSix == 0 ]; then
+
+textBox
+printf "The path leads to a small,"
+textBoxLine2
+printf "bustling town with plenty of"
+textBoxLine3
+printf "townsfolk commuting to and from work."
+textBoxWait
+
+textBox
+printf "In the immediate vicinity, there"
+textBoxLine2
+printf "seems to be a bustler standing on"
+textBoxLine3
+printf "a small wooden crate, two houses,"
+textBoxLine4
+printf "and a small shop beside them."
+textBoxWait
+
+enterMapSix=1
+
+fi

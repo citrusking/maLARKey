@@ -57,3 +57,18 @@ placeTransition 10 1
 placeTransition 11 1
 placeTransition 10 20
 placeTransition 11 20
+
+
+if [ $enterMapEight == 0 ]; then
+
+textBox
+printf "The path leads to a giant wall"
+textBoxLine2
+printf "with an absurdly large door."
+textBoxLine3
+printf "$friendName is off to the side."
+textBoxWait
+
+enterMapEight=1
+
+fi
