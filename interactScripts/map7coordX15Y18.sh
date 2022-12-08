@@ -1,13 +1,13 @@
 #!/bin/bash
 
 textBox
-printf "       Here lies $playerName"
+printf "         Here lies $playerName"
 textBoxLine2
 printf "  Fell through a tear in space-time"
 textBoxLine3
-printf "       Traumatizing a student"
+printf "   and died horrifically on impact,"
 textBoxLine4
-printf "       and giving them amnesia"
+printf "    traumatizing a nearby student"
 headstoneWait
 
 textBox

@@ -1,0 +1,13 @@
+Hi! It's great to see you again! How are you?
+I was just thinking about how you used the
+Linux redirection syntax to write me a letter.
+It reminded me that there's a similar syntax
+within Linux for appending! That way, you can
+add text to a file without overwriting it!
+The syntax is super simple: you just have to
+use two redirection symbols, in other words:
+just use '>>'!
+
+(DEV NOTE: Appending does not work in-game
+for coding reasons. I had to specifically
+code in the redirection for earlier.)

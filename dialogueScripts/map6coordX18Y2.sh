@@ -206,7 +206,7 @@ textBoxLine3
 printf "what I asked. Here's your payment."
 textBoxWait
 
-echo "Good ol' American dollar given by the blind man" > blindDollar
+echo "Good ol' American dollar given by the blind man" > myInventory/blindDollar
 dollars=$(( $dollars + 1 ))
 
 textBox

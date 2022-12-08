@@ -245,7 +245,7 @@ textBoxWait
 
 fi
 
-if [ $tutorialEcho == 1 ]; then
+if [ $tutorialEcho == 1 ] && [ $friendTalk != 2 ]; then
 
 textBox
 printf "$friendName: Good job! You just executed"

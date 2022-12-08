@@ -21,7 +21,9 @@ placeTransition 11 1
 placeObject 10 4
 placeObject 11 4
 
+if [ $friendTalk == 0 ]; then
 placeNPC 13 7
+fi
 
 if [ $enterMapOne == 0 ]; then
 

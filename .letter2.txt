@@ -1,0 +1,9 @@
+Thank you so much for delivering that message for him!
+I've always thought he was cute.
+
+Please give him this envelope by using the mv command.
+The mv command moves a file from one place to another
+in Linux. You can use it by typing 'mv' followed by
+the location of the file, followed by the destination
+of the file. In this case all you have to type is:
+mv myInventory/Envelope manInventory/Envelope

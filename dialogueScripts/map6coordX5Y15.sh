@@ -74,7 +74,7 @@ textBoxWait
 
 fi
 
-if [ $talkBend != 2 ] && [ `ls myInventory | grep "Rope" | wc -l` == 0 ]; then
+if [ $talkBend == 1 ] && [ `ls myInventory | grep "Rope" | wc -l` == 0 ]; then
 
 textBox
 printf "You: I don't have a rope."
@@ -314,13 +314,10 @@ printf "mood, so you don't say anything."
 textBoxWait
 
 talkBend=3
-continue
 
 fi
 
-fi
-
-if [ $talkBend == 3 ]; then
+elif [ $talkBend == 3 ]; then
 
 textBox
 printf "Bend: Hey there friend!"

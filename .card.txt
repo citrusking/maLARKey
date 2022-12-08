@@ -1,0 +1,11 @@
+Hello! I am terribly sorry if I have been any trouble to you.
+I lost my hearing before I could even walk due to a disease.
+If you have something you must tell me, please write it down
+for me using Linux.
+
+To write me a letter, simply use redirection!
+All you have to do is echo your message then follow that
+with the '>' sign. This is the sign for redirection
+of output. It will send the Linux output wherever you want.
+Please make sure to put the letter in my inventory by
+using the syntax: echo "message" > ladyInventory/letter.txt

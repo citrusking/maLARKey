@@ -395,7 +395,7 @@ textBoxPrompt
 case $prompt in
 
 y|Y)
-	rm -r *Inventory
+	rm -fr ./*
         clear
         stty echo
         visible

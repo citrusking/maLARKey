@@ -110,6 +110,86 @@ textBoxLine3
 printf "again?"
 textBoxWait
 
+if [ $gunGiven == 1 ] || [ $graveDug == 1 ]; then
+
+textBox
+printf "Professor: Wait a second... it"
+textBoxLine2
+printf "actually makes sense that you would"
+textBoxLine3
+printf "enjoy harassing others for some"
+textBoxLine4
+printf "dumb prank."
+textBoxWait
+
+fi
+
+if [ $gunGiven == 1 ] && [ $graveDug == 0 ]; then
+
+textBox
+printf "Professor: I heard that you"
+textBoxLine2
+printf "were the one that gave that gun"
+textBoxLine3
+printf "to the kid that shot up the ranch!"
+textBoxLine4
+printf "Who gives a child a gun!?"
+textBoxWait
+
+fi
+
+if [ $gunGiven == 0 ] && [ $graveDug == 1 ]; then
+
+textBox
+printf "Professor: I heard that you"
+textBoxLine2
+printf "dug up the old gravedigger's wife!"
+textBoxWait
+
+textBox
+printf "Professor: What the fuck?"
+textBoxLine2
+printf "Like, seriously... what the fuck?"
+textBoxWait
+
+fi
+
+if [ $gunGiven == 1 ] && [ $graveDug == 1 ]; then
+
+textBox
+printf "Professor: I heard that you not"
+textBoxLine2
+printf "only gave a kid a gun, but you"
+textBoxLine3
+printf "also dug up the actual corpse"
+textBoxLine4
+printf "of that old gravedigger's wife!"
+textBoxWait
+
+textBox
+printf "Professor: I am disgusted."
+textBoxLine2
+printf "I genuinely don't understand you."
+textBoxLine3
+printf "You must get off on terrorizing"
+textBoxLine4
+printf "innocent people."
+textBoxWait
+
+textBox
+printf "Professor: I thought I knew"
+textBoxLine2
+printf "you... it seems you're nothing"
+textBoxLine3
+printf "more than a sick monster."
+textBoxWait
+
+fi
+
+textBox
+printf "Professor: Explain yourself!"
+textBoxWait
+
 textBox
 printf "You: Um, I... I'm so confused."
 textBoxLine2

@@ -13,7 +13,7 @@ textBoxLine3
 printf "    Loved by all but known by few"
 headstoneWait
 
-if [ `cat inventory | grep "Shovel" | wc -l` == 1 ] && [ $graveDug == 0 ]
+if [ `ls myInventory | grep "Shovel" | wc -l` == 1 ] && [ $graveDug == 0 ]
 then
 
 while true
@@ -39,13 +39,11 @@ Y | y)
 	printf "and take the ring from off its finger."
 	textBoxWait
 	
-	cat inventory | grep -v "Shovel" > inventory
-	echo "Golden Ring" >> inventory
+	rm myInventory/Shovel
+	echo "Golden ring robbed from the grave of a poor old lady." > myInventory/goldenRing
 	
 	textBox
-	printf "Golden Ring was added"
-	textBoxLine2
-	printf "to your inventory."
+	printf "goldenRing was added to inventory."
 	textBoxWait
 	
 	graveDug=1
