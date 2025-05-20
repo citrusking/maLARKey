@@ -1,11 +1,11 @@
 Welcome to LARK
->>>>>>>the Linux Activity to Reinforce Knowledge
+>>>>>>> The Linux Activity to Reinforce Knowledge
 
 Name of game: maLARKey
 
-Developed by: Curtis King (Lark Group 52)
+Developed by: Curtis King
 
-Narrative: You are in your room and a hole in space-time appears, you jump in and end up in the Wild West circa 1900
+Narrative: You are in your room and a hole in space-time appears, you jump in and end up in the wild west circa 1900
 
 Instructions:
 type ./malarkey.sh
